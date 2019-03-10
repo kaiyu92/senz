@@ -7,7 +7,11 @@
 sudo bash serverInstallDebian.sh
 ```
 ## Run server
-`sbt run`
+`
+sbt run
+`
 
 ## Run tests
-`sbt test`
+`
+sbt test
+`
