@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Grid, Header } from "semantic-ui-react";
 import NavBar from "./Navbar";
 import SideNavbar from "./SideNavbar";
+import './styles.css';
 
 class Layout extends Component {
 
@@ -29,7 +30,7 @@ class Layout extends Component {
           >
             <Grid padded>
               <Grid.Row>
-                <Header dividing size="huge" as="h1">
+                <Header dividing size="huge" as="h1" align="left">
                   Dashboard
                 </Header>
               </Grid.Row>

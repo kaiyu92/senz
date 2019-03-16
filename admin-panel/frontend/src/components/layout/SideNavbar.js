@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Menu, Divider } from 'semantic-ui-react';
 
 const SideNavbar = () => (
-    <Menu vertical borderless fluid text>
-      <Menu.Item active as="a">
+    <Menu vertical borderless fluid text align="left">
+      <Menu.Item as="a">
         Overview
       </Menu.Item>
       <Menu.Item as="a">Reports</Menu.Item>

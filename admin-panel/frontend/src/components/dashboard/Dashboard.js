@@ -8,6 +8,7 @@ class Dashboard extends Component {
     return (
       <div>
         <Layout>
+        	<h3> Hello World </h3>
         </Layout>
       </div>
     );
