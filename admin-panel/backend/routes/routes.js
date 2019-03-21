@@ -68,8 +68,8 @@ router.route('/login').post(function(req, res){
 	});
 });
 
-//POST a user (using POST at http://localhost:3001/addUser)
-router.route('/addUser').post(function(req, res){
+//POST a user (using POST at http://localhost:3001/register)
+router.route('/register').post(function(req, res){
 
 	User.find({ user: req.body.user }).exec(function(err, results) {
 
@@ -125,7 +125,6 @@ router.route('/addProject').post(function(req, res){
 				status: 'fail',
 				message: 'Sorry, unable to add new project'
 			})
-			//res.send(err);
 		else
 			res.json({
 				status: 'success',

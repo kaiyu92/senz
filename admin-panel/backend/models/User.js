@@ -6,7 +6,9 @@ var UserSchema = new Schema({
 	password: String,
 	email: String,
 	firstName: String,
-	lastName: String
+	lastName: String,
+	createdDate: { type: Date, default: Date.now },
+	lastUpdateDate: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('User', UserSchema);
