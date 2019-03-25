@@ -1,0 +1,7 @@
+#Successful Tests
+#Sun Mar 10 00:58:56 PST 2019
+com.scorelab.senz.utils.MessageUtilsTest=1552208331496
+com.scorelab.senz.database.DatabaseTest=1552208335395
+com.scorelab.senz.socket.SocketTest=1552208335756
+com.scorelab.senz.utils.RSAUtilsTest=1552208332639
+com.scorelab.senz.MainTest=1552208331497

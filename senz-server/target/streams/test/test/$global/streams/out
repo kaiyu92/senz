@@ -1,0 +1,16 @@
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(com.scorelab.senz.MainTest, org.scalatest.tools.Framework$$anon$1@65a6faf5, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(com.scorelab.senz.utils.MessageUtilsTest, org.scalatest.tools.Framework$$anon$1@65a6faf5, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(com.scorelab.senz.utils.RSAUtilsTest, org.scalatest.tools.Framework$$anon$1@65a6faf5, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(com.scorelab.senz.socket.SocketTest, org.scalatest.tools.Framework$$anon$1@65a6faf5, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(com.scorelab.senz.database.DatabaseTest, org.scalatest.tools.Framework$$anon$1@65a6faf5, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 7 seconds, 364 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 7[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 5, aborted 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 7, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	com.scorelab.senz.utils.MessageUtilsTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	com.scorelab.senz.utils.RSAUtilsTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	com.scorelab.senz.MainTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	com.scorelab.senz.database.DatabaseTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	com.scorelab.senz.socket.SocketTest[0m
