@@ -8,7 +8,7 @@ var passwordHash = require('password-hash');
 var router = express.Router();
 
 //frontend url
-var client = 'http://localhost:8080';
+var client = 'http://localhost:3000';
 
 //Middleware for all this routers requests
 router.use(function timeLog(req, res, next){

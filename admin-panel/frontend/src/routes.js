@@ -7,6 +7,7 @@ import { loadState } from './components/util/localStorage';
 
 import Login from "./components/login/Login";
 import Dashboard from "./components/dashboard/Dashboard";
+import Register from "./components/registration/Register";
 
 const persistedState = loadState();
 
@@ -19,6 +20,7 @@ class routes extends Component {
 				<ConnectedRouter history={history}>
 					<Switch>
 						<Route exact path="/" component={Login} />
+						<Route exact path="/registration" component={Register} />
 						<Route path="/dashboard" component={Dashboard} />
 					</Switch>
 				</ConnectedRouter>
