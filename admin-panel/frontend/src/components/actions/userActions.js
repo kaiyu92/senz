@@ -56,13 +56,14 @@ export function loginFail(error) {
 export function attemptLogin(data) {
 	return dispatch => {
 		axios.post(ROOT_URL + 'login', {
-			data
+			identifier: data.identifier,
+			password: data.password
 		})
 		.then(res => {
-			if (res.body.status === 'success') {
-				dispatch(loginSuccess(res.body.user));
+			if (res.data.status === 'success') {
+				dispatch(loginSuccess(res.data.user));
 			} else {
-				dispatch(loginFail(res.body.message));
+				dispatch(loginFail(res.data.message));
 			}
 		})
 		.catch(err => {

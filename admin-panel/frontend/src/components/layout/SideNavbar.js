@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Menu, Divider } from 'semantic-ui-react';
 
 const SideNavbar = () => (

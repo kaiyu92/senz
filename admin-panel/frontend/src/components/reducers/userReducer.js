@@ -7,7 +7,6 @@ import {
 	RESET_SIGNUP } from '../actions/userActions';
 
 const initialState ={
-	isAuthenticated: false,
 	isLoggedIn: false,
 	error: {},
 	userObject: {
@@ -48,7 +47,6 @@ const userReducer = (state=initialState, action) => {
 
 		case LOGIN_SUCCESS:
 			return Object.assign({}, state, {
-				isAuthenticated: true,
 				isLoggedIn: true,
 				userObject: {
 					username: action.payload.user,
@@ -63,7 +61,6 @@ const userReducer = (state=initialState, action) => {
 
 		case LOGOUT:
 			return Object.assign({}, state, {
-				isAuthenticated: false,
 				isLoggedIn: false,
 				error: {},
 				userObject: {

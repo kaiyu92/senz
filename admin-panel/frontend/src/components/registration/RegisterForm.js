@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
+import { InputField } from 'react-semantic-redux-form';
+import { Link } from "react-router-dom";
 
 import {
   Button,
@@ -18,7 +20,18 @@ const divStyle = {
   width: '450px',
 };
 
-const required = value => (value ? undefined : 'Required');
+const validate = values => {
+	const errors = {};
+	const requiredFields = ['user', 'password', 'email',
+							'firstName', 'lastName'];
+
+	requiredFields.forEach(field => {
+		if(!values[field]) {
+			errors[field] = 'Required'
+		}
+	});
+	return errors;
+}
 
 class RegisterForm extends Component {
 
@@ -43,32 +56,32 @@ class RegisterForm extends Component {
 		            })}>
 		              <Segment stacked>
 		              	<Field
-		              		component={Form.Input}
+		              		component={InputField}
 		              		fluid
 		              		name="firstName"
 		              		placeholder="First Name"
 		              	/>
 		              	<Field
-		              		component={Form.Input}
+		              		component={InputField}
 		              		fluid
 		              		name="lastName"
 		              		placeholder="Last Name"
 		              	/>
 		              	<Field
-		              		component={Form.Input}
+		              		component={InputField}
 		              		fluid
 		              		name="email"
 		              		placeholder="Email"
 		              		type="email"
 		              	/>
 		              	<Field
-		              		component={Form.Input}
+		              		component={InputField}
 		              		fluid
 		              		name="user"
 		              		placeholder="Username"
 		              	/>
 		              	<Field
-		              		component={Form.Input}
+		              		component={InputField}
 		              		fluid
 		              		name="password"
 		              		placeholder="Password"
@@ -93,7 +106,7 @@ class RegisterForm extends Component {
                 		/>: <div></div>
 	                }
 		            <Message>
-		              Already an existing user? <a href="#root">Sign In</a>
+		              Already an existing user? <Link to="/">Sign In</Link>
 		            </Message>
 		          </Grid.Column>
 		        </Grid>
@@ -104,4 +117,5 @@ class RegisterForm extends Component {
 
 export default reduxForm({
 	form: "RegisterForm",
+	validate
 })(RegisterForm);
