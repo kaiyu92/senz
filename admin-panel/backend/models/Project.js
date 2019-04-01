@@ -8,7 +8,7 @@ var ProjectSchema = new Schema({
 	lastUpdateDate: { type: Date, default: Date.now },
 	sharedKey: String,
 	owner: String,
-	devices:[{ type: Schema.Types.ObjectId, ref: 'Device' }]
+	devices:[{ deviceName: String }]
 });
 
 module.exports = mongoose.model('Project', ProjectSchema);

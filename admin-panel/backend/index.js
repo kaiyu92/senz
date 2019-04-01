@@ -5,8 +5,10 @@ var mongoose = require('mongoose');
 
 var app = express();
 
+mongoose.set('useFindAndModify', false);
 //Connect to Mongodb
 mongoose.connect('mongodb://localhost/senzdb', { useNewUrlParser: true });
+
 
 //Body-Parser Middleware
 //express app will use body-parser to get data from POST

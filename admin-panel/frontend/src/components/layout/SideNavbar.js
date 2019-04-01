@@ -1,24 +1,16 @@
 import React from "react";
-import { Menu, Divider } from 'semantic-ui-react';
+import { Menu, Divider, Header } from 'semantic-ui-react';
+import AddProject from '../projects/AddProject';
+import ProjectList from '../projects/ProjectList';
 
 const SideNavbar = () => (
-    <Menu vertical borderless fluid text align="left">
-      <Menu.Item as="a">
-        Overview
+    <Menu vertical borderless fluid text align="center">
+      <Menu.Item header>
+        Projects
       </Menu.Item>
-      <Menu.Item as="a">Reports</Menu.Item>
-      <Menu.Item as="a">Analytics</Menu.Item>
-      <Menu.Item as="a">Export</Menu.Item>
+      <ProjectList/>
+      <Menu.Item><AddProject/></Menu.Item>
       <Divider hidden />
-      <Menu.Item as="a">Nav item</Menu.Item>
-      <Menu.Item as="a">Nav item again</Menu.Item>
-      <Menu.Item as="a">One more nav</Menu.Item>
-      <Menu.Item as="a">Another nav item</Menu.Item>
-      <Menu.Item as="a">More navigation</Menu.Item>
-      <Divider hidden />
-      <Menu.Item as="a">Macintoch</Menu.Item>
-      <Menu.Item as="a">Linux</Menu.Item>
-      <Menu.Item as="a">Windows</Menu.Item>
 	</Menu>
 );
 

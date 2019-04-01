@@ -1,5 +1,6 @@
 var express = require('express');
 var User = require('../models/User');
+var Project = require('../models/Project');
 
 //Password hashing
 var passwordHash = require('password-hash');
@@ -129,14 +130,29 @@ router.route('/addProject').post(function(req, res){
 			res.json({
 				status: 'success',
 				message: 'Successfully added a new project',
-				id: result._id
+				newProject: result
 			})
 	});
 });
 
+// Update project title, desc, sharedKey...
+// PUT update project (using PUT at http://localhost:3001/updateProject/:project_id)
+router.route('/updateProject/:project_id').put(function(req, res) {
+	Project.findByIdAndUpdate(req.params.project_id,
+		{ $set: { title: req.body.title,
+					desc: req.body.desc,
+					sharedKey: req.body.sharedKey} },
+				{ new: true }, function(err, project) {
+					if (err)
+						res.send(err);
+					res.json(project);
+				}
+	)
+});
+
 //GET all projects that the user is working on (using GET at http://localhost:3001/projects/:user)
 router.route('/projects/:user').get(function(req, res) {
-	Project.find({users: {$elemMatch:{$eq:req.params.user}}}, function(err, projects) {
+	Project.find({owner:req.params.user}, function(err, projects) {
 		if(err)
 			res.send(err);
 		res.json(projects);
@@ -144,54 +160,20 @@ router.route('/projects/:user').get(function(req, res) {
 });
 
 //Add device to the project ...
-//PUT update project (using PUT at http://localhost:3001/addDeviceProject/:project_id)
-router.route('/addDeviceProject/:project_id').put(function(req, res) {
+//PUT update project (using PUT at http://localhost:3001/addDevice/:project_id)
+router.route('/addDevice/:project_id').put(function(req, res) {
 	Project.findByIdAndUpdate(req.params.project_id,
-							{ $push: { nodes: req.body.device_id }},
-							{ new: true }, function(err, project) {
-								if(err)
-									res.json({
-										status: 'fail',
-										message: 'Sorry, unable to add this device to this project'
-									})
-									//res.send(err);
-								else
-									res.json({
-										status: 'success',
-										message: 'Successfully added this device to this project'
-									})
-							})
+		{ $push: { devices: { deviceName: req.body.deviceName } } },
+		{ new: true }, function(err, project) {
+			if (err)
+				res.send(err);
+			res.json(project);
+		}
+	)
 });
 
 //==========================================================
 
-//=====================DEVICE==============================
-//POST a new device (using POST at http://localhost:3001/addDevice)
-router.route('/addDevice').post(function(req, res){
-	var newDevice = new Device();
-
-	//Set the Project attributes
-	newDevice.deviceName = req.body.deviceName;
-	newDevice.owner = req.body.user;
-	newDevice.project_id = req.body.project_id;
-
-	newDevice.save(function(err, result) {
-		if(err)
-			res.json({
-				status: 'fail',
-				message: 'Sorry, unable to add new node'
-			})
-			//res.send(err);
-		else
-			res.json({
-				status: 'success',
-				message: 'Successfully created a new node',
-				node: result
-			})
-	});
-});
-
-//==========================================================
 
 module.exports = router;
 

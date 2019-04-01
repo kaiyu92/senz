@@ -10,7 +10,7 @@ class Layout extends Component {
     return (
       <div>
         <Grid padded className="tablet computer only">
-        	<NavBar />
+          <NavBar />
         </Grid>
         <Grid padded>
           <Grid.Column
@@ -19,7 +19,7 @@ class Layout extends Component {
             only="tablet computer"
             id="sidebar"
           >
-          	<SideNavbar />
+            <SideNavbar />
           </Grid.Column>
           <Grid.Column
             mobile={16}
@@ -34,15 +34,13 @@ class Layout extends Component {
                   Dashboard
                 </Header>
               </Grid.Row>
-              <Grid.Row>
               {this.props.children}
-              </Grid.Row>
             </Grid>
           </Grid.Column>
         </Grid>
-	</div>
-	);
-	}
+  </div>
+  );
+  }
 }
 
 export default Layout;

@@ -1,12 +1,13 @@
 import { connect } from "react-redux";
 import { resetProjectEditState } from "../actions/projectActions";
 import { bindActionCreators } from 'redux';
-import DashboardDisplay from "./DashboardDisplay";
+import DeviceListDisplay from "./DeviceListDisplay";
 
 const mapStateToProps = (state) => {
 	return {
+		projects: state.project.projects,
 		selectedProject: state.project.selectedProject,
-		isProjectEditUpdating: state.project.isProjectEditUpdating
+		isProjectEditUpdating: state.project.isProjectEditUpdating 
 	};
 };
 
@@ -17,4 +18,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardDisplay);
+export default connect(mapStateToProps, mapDispatchToProps)(DeviceListDisplay);
