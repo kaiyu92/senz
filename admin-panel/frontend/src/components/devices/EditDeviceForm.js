@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { InputField } from 'react-semantic-redux-form';
+import { connect } from 'react-redux';
 
 import {
   Button,
@@ -23,36 +24,30 @@ const validate = values => {
 	return errors;
 }
 
-class AddDeviceForm extends Component {
+class EditDeviceForm extends Component {
 
 	constructor(props) {
 		super(props);
-		this.openModal = this.openModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
 	}
 
 	submitForm(val) {
-		this.props.addNewDevice(val, this.props.selectedProject._id, this.props.projects);
+		this.props.editDevice(val,this.props.selectedDevice._id, this.props.selectedProject._id, this.props.projects);
 		this.closeModal();
 		this.props.reset();
 	}
 
-	openModal = () => {
-		this.props.showAddDeviceModal();
-	}
-
 	closeModal = () => {
-		this.props.hideAddDeviceModal();
+		this.props.hideEditDeviceModal();
 	}
 
 	render() {
 		const { handleSubmit, projectError,
-			showModalState } = this.props;
+			showModalState, selectedProject, selectedDevice } = this.props;
 
 		return (
-			<div>
-				<Modal onClose={this.closeModal} open={showModalState} trigger={<Button basic color='blue' onClick={this.openModal}>Add Device</Button>} closeIcon>
-					<Header icon='sitemap' content='New Device' />
+				<Modal onClose={this.closeModal} open={showModalState} closeIcon>
+					<Header icon='sitemap' content='Edit Existing Device' />
 					<Modal.Content>
 						<Form onSubmit={ handleSubmit((values) => {
 							this.submitForm(values)
@@ -65,7 +60,7 @@ class AddDeviceForm extends Component {
 									name="deviceName"
 								/>
 								<Button color="blue" fluid size="large">
-				                  Add Device
+				                  Edit Device
 				                </Button>
 							</Segment>
 						</Form>
@@ -73,18 +68,27 @@ class AddDeviceForm extends Component {
 			            	projectError.length > 0 ?
 			            	<Message
 			        			error
-			        			header="There was some error adding the device"
+			        			header="There was some error editing the device"
 			        			content={ projectError }
 			        		/>: <div></div>
 			            }
 		            </Modal.Content>
 	            </Modal>
-			</div>
 		);
 	}
 }
+EditDeviceForm = reduxForm({
+	form: 'EditDeviceForm',
+	validate,
+	enableReinitialize: true
+})(EditDeviceForm);
 
-export default reduxForm({
-	form: 'AddDeviceForm',
-	validate
-})(AddDeviceForm);
+EditDeviceForm = connect(
+	state => ({
+		initialValues: {
+			deviceName: state.project.selectedDevice.deviceName,
+		}
+	}),
+)(EditDeviceForm)
+
+export default EditDeviceForm

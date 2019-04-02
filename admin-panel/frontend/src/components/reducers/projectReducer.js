@@ -13,18 +13,27 @@ import { FETCH_PROJECT_SUCCESS,
 		RESET_PROJECT_LIST_STATE,
 		RESET_PROJECT_EDIT_STATE,
 		SHOW_ADD_DEVICE_MODAL,
-		HIDE_ADD_DEVICE_MODAL } from '../actions/projectActions';
+		HIDE_ADD_DEVICE_MODAL,
+		EDIT_DEVICE_FAIL,
+		SHOW_EDIT_DEVICE_MODAL,
+		HIDE_EDIT_DEVICE_MODAL,
+		SELECT_SPECIFIC_DEVICE,
+		DELETE_PROJECT_FAIL,
+		DELETE_PROJECT_STATE_UPDATE,
+		DELETE_DEVICE_FAIL } from '../actions/projectActions';
 
 const initialState = {
 	projects:[],
 	error: {},
 	isUpdated: false,
 	selectedProject: {},
+	selectedDevice: {},
 	showAddProjectModal: false,
 	showEditProjectModal: false,
 	isProjectListUpdating: false,
 	isProjectEditUpdating: false,
-	showAddDeviceModal: false
+	showAddDeviceModal: false,
+	showEditDeviceModal: false,
 };
 
 const projectReducer = (state=initialState, action) => {
@@ -49,7 +58,16 @@ const projectReducer = (state=initialState, action) => {
 			return Object.assign({}, state, {
 				projects: action.payload.projects,
 				selectedProject: action.payload.selectedProject,
+				selectedDevice: {},
 				isProjectEditUpdating: true,
+				isProjectListUpdating: true
+			});
+
+		case DELETE_PROJECT_STATE_UPDATE:
+			return Object.assign({}, state, {
+				projects: action.payload,
+				selectedProject: {},
+				selectedDevice: {},
 				isProjectListUpdating: true
 			});
 
@@ -69,6 +87,11 @@ const projectReducer = (state=initialState, action) => {
 			});
 
 		case EDIT_PROJECT_FAIL:
+			return Object.assign({}, state, {
+				error: action.payload
+			});
+
+		case DELETE_PROJECT_FAIL:
 			return Object.assign({}, state, {
 				error: action.payload
 			});
@@ -111,6 +134,31 @@ const projectReducer = (state=initialState, action) => {
 		case HIDE_ADD_DEVICE_MODAL:
 			return Object.assign({}, state, {
 				showAddDeviceModal: false
+			});
+
+		case EDIT_DEVICE_FAIL:
+			return Object.assign({}, state, {
+				error: action.payload
+			});
+		case SHOW_EDIT_DEVICE_MODAL:
+			return Object.assign({}, state, {
+				showEditDeviceModal: true,
+				isDeviceEditUpdating: true
+			});
+
+		case HIDE_EDIT_DEVICE_MODAL:
+			return Object.assign({}, state, {
+				showEditDeviceModal: false
+			});
+
+		case SELECT_SPECIFIC_DEVICE:
+			return Object.assign({}, state, {
+				selectedDevice: action.payload
+			});
+
+		case DELETE_DEVICE_FAIL:
+			return Object.assign({}, state, {
+				error: action.payload
 			});
 
 		default:

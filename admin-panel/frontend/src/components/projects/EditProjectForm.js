@@ -49,7 +49,7 @@ class EditProjectForm extends Component {
 
 	render() {
 		const { handleSubmit, projectError,
-			showModalState, selectedProject } = this.props;
+			showModalState } = this.props;
 
 		return (
 				<Modal onClose={this.closeModal} open={showModalState} trigger={<Button basic color='blue' onClick={this.openModal} icon='edit'></Button>} closeIcon>

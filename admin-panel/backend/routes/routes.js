@@ -107,6 +107,7 @@ router.route('/register').post(function(req, res){
 		}
 	})
 });
+
 //=======================================================
 
 //=====================PROJECT==============================
@@ -159,6 +160,22 @@ router.route('/projects/:user').get(function(req, res) {
 	});
 });
 
+//DELETE an existing project (using POST at http://localhost:3001/removeProject/:project_id)
+router.route('/removeProject/:project_id').delete(function(req, res) {
+	Project.deleteOne({ _id: req.params.project_id }, function(err) {
+		if(err)
+			res.json({
+				status: 'fail',
+				message: 'Sorry, unable to remove this project'
+			})
+		else
+			res.json({
+				status: 'success',
+				message: 'Successfully removed this project'
+			})
+	});
+});
+
 //Add device to the project ...
 //PUT update project (using PUT at http://localhost:3001/addDevice/:project_id)
 router.route('/addDevice/:project_id').put(function(req, res) {
@@ -170,6 +187,40 @@ router.route('/addDevice/:project_id').put(function(req, res) {
 			res.json(project);
 		}
 	)
+});
+
+//Edit device to the project ...
+//PUT update project (using PUT at http://localhost:3001/editDevice/:project_id/devices/:device_id)
+router.route('/editDevice/:project_id/devices/:device_id').put(function(req, res) {
+
+	Project.findOneAndUpdate(
+		{ "_id": req.params.project_id, "devices._id": req.params.device_id },
+		{
+			$set: { "devices.$.deviceName": req.body.deviceName }
+		},
+		{ new: true }, function(err, project) {
+			if (err)
+				res.send(err);
+			res.json(project);
+		}
+	);
+});
+
+//REMOVE device to the project ...
+//PUT update project and remove device (using PUT at http://localhost:3001/removeDevice/:project_id/devices/:device_id)
+router.route('/removeDevice/:project_id/devices/:device_id').put(function(req, res) {
+
+	Project.findOneAndUpdate(
+		{ "_id": req.params.project_id  },
+		{
+			$pull: { devices : { "_id": req.params.device_id } }
+		},
+		{ new: true }, function(err, project) {
+			if (err)
+				res.send(err);
+			res.json(project);
+		}
+	);
 });
 
 //==========================================================

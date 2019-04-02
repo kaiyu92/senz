@@ -10,6 +10,8 @@ export const ADD_PROJECT_FAIL = 'ADD_PROJECT_FAIL';
 
 export const EDIT_PROJECT_FAIL = 'EDIT_PROJECT_FAIL';
 
+export const DELETE_PROJECT_FAIL = 'DELETE_PROJECT_FAIL';
+
 export const SHOW_ADD_PROJECT_MODAL = 'SHOW_ADD_PROJECT_MODAL';
 export const HIDE_ADD_PROJECT_MODAL = 'HIDE_ADD_PROJECT_MODAL';
 
@@ -29,9 +31,18 @@ export const RESET_PROJECT_EDIT_STATE = 'RESET_PROJECT_EDIT_STATE';
 
 //==============Devices=====================
 export const ADD_DEVICE_FAIL = 'ADD_DEVICE_FAIL';
+export const EDIT_DEVICE_FAIL = 'EDIT_DEVICE_FAIL';
+export const DELETE_DEVICE_FAIL = 'DELETE_DEVICE_FAIL';
+
+export const SELECT_SPECIFIC_DEVICE = 'SELECT_SPECIFIC_DEVICE';
 
 export const SHOW_ADD_DEVICE_MODAL = 'SHOW_ADD_DEVICE_MODAL';
 export const HIDE_ADD_DEVICE_MODAL = 'HIDE_ADD_DEVICE_MODAL';
+
+export const SHOW_EDIT_DEVICE_MODAL = 'SHOW_EDIT_DEVICE_MODAL';
+export const HIDE_EDIT_DEVICE_MODAL = 'HIDE_EDIT_DEVICE_MODAL';
+
+export const RESET_DEVICE_EDIT_STATE = 'RESET_DEVICE_EDIT_STATE';
 
 //==========================================
 
@@ -50,13 +61,15 @@ Option 3 -> Delete project
 **/
 export function updateAllProjectsState(projects, project, actionType) {
 
+	var i = 0;
+	var selectedIndex = 0;
 	switch (actionType) {
 		case 1:
 			projects.push(project);
 			return { type: ADD_PROJECT_STATE_UPDATE, payload: projects }
 		case 2:
-			var selectedIndex = 0;
-			for (var i = 0; i < projects.length; i++) {
+			selectedIndex = 0;
+			for (i = 0; i < projects.length; i++) {
 				if (projects[i]._id === project._id) {
 					selectedIndex = i;
 					break;
@@ -65,15 +78,16 @@ export function updateAllProjectsState(projects, project, actionType) {
 			const newProjects = Object.assign([], projects, {[selectedIndex]: project});
 			return { type: EDIT_PROJECT_STATE_UPDATE, payload: { projects: newProjects, selectedProject: project }}
 		case 3:
-			var selectedIndex = 0;
-			for (var i = 0; i < projects.length; i++) {
+			selectedIndex = 0;
+			for (i = 0; i < projects.length; i++) {
 				if (projects[i]._id === project._id) {
 					selectedIndex = i;
 					break;
 				}
 			}
+			projects.splice(selectedIndex, 1);
 
-			return { type: DELETE_PROJECT_STATE_UPDATE, payload: projects.splice(selectedIndex, 1) }
+			return { type: DELETE_PROJECT_STATE_UPDATE, payload: projects }
 	}	
 }
 
@@ -161,6 +175,22 @@ export function hideEditProjectModal() {
 	return { type: HIDE_EDIT_PROJECT_MODAL }
 }
 
+export function removeProject(selectedProject_id, projects) {
+	return dispatch => {
+		axios.delete(ROOT_URL + 'removeProject/' + selectedProject_id)
+		.then(res => {
+			dispatch(updateAllProjectsState(projects, { _id: selectedProject_id }, 3));
+		})
+		.catch(err => {
+			dispatch(removeProjectFailure(err.message));
+		})
+	}
+}
+
+export function removeProjectFailure(error) {
+	return { type: DELETE_PROJECT_FAIL, payload: error }
+}
+
 export function selectSpecficProject(projects, project_id) {
 	for (var i = 0; i < projects.length; i++) {
 		if (projects[i]._id === project_id)
@@ -199,3 +229,53 @@ export function hideAddDeviceModal() {
 	return { type: HIDE_ADD_DEVICE_MODAL }
 }
 
+export function editDevice(data, selectedDevice_id, selectedProject_id, projects) {
+	return dispatch => {
+		axios.put(ROOT_URL + 'editDevice/' + selectedProject_id + '/devices/' + selectedDevice_id, {
+			deviceName: data.deviceName,
+		})
+		.then(res => {
+			dispatch(updateAllProjectsState(projects, res.data, 2));
+		})
+		.catch(err => {
+			dispatch(editDeviceFailure(err.message));
+		})
+	}
+}
+
+export function editDeviceFailure(error) {
+	return { type: EDIT_DEVICE_FAIL, payload: error }
+}
+
+//EDIT DEVICE MODAL
+export function showEditDeviceModal() {
+	return { type: SHOW_EDIT_DEVICE_MODAL }
+}
+
+export function hideEditDeviceModal() {
+	return { type: HIDE_EDIT_DEVICE_MODAL }
+}
+
+export function selectSpecficDevice(selectedProject, device_id) {
+	var deviceArr = selectedProject.devices;
+	for (var i = 0; i < deviceArr.length; i++) {
+		if (deviceArr[i]._id === device_id)
+			return { type: SELECT_SPECIFIC_DEVICE, payload: deviceArr[i] }
+	}
+}
+
+export function removeDevice(selectedDevice_id, selectedProject_id, projects) {
+	return dispatch => {
+		axios.put(ROOT_URL + 'removeDevice/' + selectedProject_id + '/devices/' + selectedDevice_id)
+		.then(res => {
+			dispatch(updateAllProjectsState(projects, res.data, 2));
+		})
+		.catch(err => {
+			dispatch(editDeviceFailure(err.message));
+		})
+	}
+}
+
+export function removeDeviceFailure(error) {
+	return { type: DELETE_DEVICE_FAIL, payload: error }
+}
