@@ -43,7 +43,7 @@ class EditDeviceForm extends Component {
 
 	render() {
 		const { handleSubmit, projectError,
-			showModalState, selectedProject, selectedDevice } = this.props;
+			showModalState } = this.props;
 
 		return (
 				<Modal onClose={this.closeModal} open={showModalState} closeIcon>

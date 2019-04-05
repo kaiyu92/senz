@@ -1,30 +1,20 @@
-import React from "react";
-import { Menu } from 'semantic-ui-react';
+import { connect } from "react-redux";
+import { resetSelectedProjectState } from "../actions/projectActions";
+import { attemptLogout } from "../actions/userActions"
+import { bindActionCreators } from 'redux';
+import NavbarDisplay from "./NavbarDisplay";
 
-const NavBar = () => (
-  <Menu borderless inverted fluid fixed="top" color="blue">
-    <Menu.Menu>
-      <Menu.Item>
-        Senz Admin Panel
-      </Menu.Item>
-    </Menu.Menu>
-    <Menu.Menu position="right">
-      <Menu.Item>
-        Dashboard
-      </Menu.Item>
-      <Menu.Item>
-        Settings
-      </Menu.Item>
-      <Menu.Item>
-        Help
-      </Menu.Item>
-      <Menu.Item>
-        Sign out
-      </Menu.Item>
-    </Menu.Menu>
-  </Menu>
-);
+const mapStateToProps = (state) => {
+  return {
+  };
+}
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators({ }, dispatch),
+    resetSelectedProjectState: () => dispatch(resetSelectedProjectState()),
+    attemptLogout: () => dispatch(attemptLogout())
+  };
+}
 
-export default NavBar;
-
+export default connect(mapStateToProps, mapDispatchToProps)(NavbarDisplay);

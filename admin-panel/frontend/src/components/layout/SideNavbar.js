@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, Divider, Header } from 'semantic-ui-react';
+import { Menu, Divider } from 'semantic-ui-react';
 import AddProject from '../projects/AddProject';
 import ProjectList from '../projects/ProjectList';
 

@@ -4,15 +4,19 @@
   "description": "Backend for admin-panel",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --recursive --exit"
   },
   "author": "Kai Yu",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
     "express": "^4.16.4",
+    "mocha": "^6.0.2",
+    "mockgoose": "^8.0.1",
     "mongoose": "^5.4.18",
     "nodemon": "^1.18.10",
-    "password-hash": "^1.2.2"
+    "password-hash": "^1.2.2",
+    "supertest": "^4.0.2"
   }
 }

@@ -71,3 +71,7 @@ export function attemptLogin(data) {
 		})
 	}
 }
+
+export function attemptLogout() {
+	return { type: LOGOUT };
+}
