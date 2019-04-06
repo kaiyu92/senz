@@ -7,7 +7,7 @@
 		revision="0.1"
 		conf="runtime-internal"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, pom, scala-tool"
-		date="20190309195627"/>
+		date="20190406040201"/>
 	<dependencies>
 		<module organisation="javax.xml.bind" name="jaxb-api">
 			<revision name="2.2.6" status="release" pubdate="20111201002020" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://jaxb.java.net/" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="18">

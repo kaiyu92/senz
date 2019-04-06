@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 const DB_URI = 'mongodb://localhost/senzdb';
 
-function connect() {
+function connect() {	
 	mongoose.set('useFindAndModify', false);
-	
 	return new Promise((resolve, reject) => {
 		if (process.env.NODE_ENV === 'test') {
 			const Mockgoose = require('mockgoose').Mockgoose;
@@ -19,6 +18,7 @@ function connect() {
 						})
 				})
 		} else {
+
 			mongoose.connect(DB_URI,
 				{ useNewUrlParser: true, useCreateIndex: true })
 				.then((res, err) => {
